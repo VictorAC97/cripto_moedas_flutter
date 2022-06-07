@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MoedaDetalhesPage2 extends StatefulWidget {
-  Moeda moeda;
-  MoedaDetalhesPage2({Key? key, required this.moeda}) : super(key: key);
+  final Moeda moeda;
+  const MoedaDetalhesPage2({Key? key, required this.moeda}) : super(key: key);
 
   @override
   State<MoedaDetalhesPage2> createState() => _MoedaDetalhesPage2State();
@@ -35,7 +35,7 @@ class _MoedaDetalhesPage2State extends State<MoedaDetalhesPage2> {
                 alignment: Alignment.center,
                 child: SizedBox(
                   child: Hero(
-                      tag: '${widget.moeda.icone}',
+                      tag: widget.moeda.icone,
                       child: Image.asset(widget.moeda.icone)),
                   height: 200,
                 ),
@@ -54,24 +54,24 @@ class _MoedaDetalhesPage2State extends State<MoedaDetalhesPage2> {
                   ),
                   child: Column(
                     children: [
-                      Padding(padding: EdgeInsets.all(72)),
+                      const Padding(padding: EdgeInsets.all(72)),
                       Text(
                         widget.moeda.nome,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 50,
                             color: Colors.orange,
                             fontWeight: FontWeight.w500),
                       ),
                       Text(
                         widget.moeda.sigla,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 30,
                           color: Colors.orange,
                         ),
                       ),
                       Text(
                         real.format(widget.moeda.preco),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 30,
                           color: Colors.orange,
                         ),

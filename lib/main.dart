@@ -1,9 +1,17 @@
-import 'package:cripto_moedas_flutter/pages/home_page.dart';
-import 'package:cripto_moedas_flutter/pages/moedas_page.dart';
+import 'package:cripto_moedas_flutter/pages/home/home_page.dart';
+import 'package:cripto_moedas_flutter/repositories/favoritas_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MeuAplicativo());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => FavoritasRepository(),
+      child: const MeuAplicativo(),
+    ),
+
+    //const MeuAplicativo(),
+  );
 }
 
 class MeuAplicativo extends StatelessWidget {

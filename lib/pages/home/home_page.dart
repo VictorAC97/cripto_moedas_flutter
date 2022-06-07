@@ -1,5 +1,5 @@
-import 'package:cripto_moedas_flutter/pages/favoritas_page.dart';
-import 'package:cripto_moedas_flutter/pages/moedas_page.dart';
+import 'package:cripto_moedas_flutter/pages/favoritas_page/favoritas_page.dart';
+import 'package:cripto_moedas_flutter/pages/todas_page/moedas_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,8 +30,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView(
         controller: _controller,
-        children: const [
-          MoedasPage(),
+        children: [
+          const MoedasPage(),
           FavoritasPage(),
         ],
         onPageChanged: setPaginaAtual,

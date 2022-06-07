@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class MoedaDetalhesPage extends StatefulWidget {
-  Moeda moeda;
-  MoedaDetalhesPage({Key? key, required this.moeda}) : super(key: key);
+  final Moeda moeda;
+  const MoedaDetalhesPage({Key? key, required this.moeda}) : super(key: key);
 
   @override
   State<MoedaDetalhesPage> createState() => _MoedaDetalhesPageState();
@@ -26,7 +26,7 @@ class _MoedaDetalhesPageState extends State<MoedaDetalhesPage> {
       Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Compra realizada com sucesso.')),
+        const SnackBar(content: Text('Compra realizada com sucesso.')),
       );
     }
   }
@@ -74,17 +74,18 @@ class _MoedaDetalhesPageState extends State<MoedaDetalhesPage> {
                     child: Container(
                       child: Text(
                         '$quantidade ${widget.moeda.sigla}',
-                        style: TextStyle(fontSize: 20, color: Colors.teal),
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.teal),
                       ),
-                      margin: EdgeInsets.only(bottom: 24),
-                      padding: EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(bottom: 24),
+                      padding: const EdgeInsets.all(12),
                       alignment: Alignment.center,
                       decoration:
                           BoxDecoration(color: Colors.teal.withOpacity(0.05)),
                     ),
                   )
                 : Container(
-                    margin: EdgeInsets.only(bottom: 24),
+                    margin: const EdgeInsets.only(bottom: 24),
                   ),
             Form(
               key: _form,
@@ -121,7 +122,7 @@ class _MoedaDetalhesPageState extends State<MoedaDetalhesPage> {
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(top: 24),
+              margin: const EdgeInsets.only(top: 24),
               child: ElevatedButton(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -139,7 +140,7 @@ class _MoedaDetalhesPageState extends State<MoedaDetalhesPage> {
                 onPressed: comprar,
               ),
             ),
-            Padding(padding: EdgeInsets.all(16)),
+            const Padding(padding: EdgeInsets.all(16)),
             ValueListenableBuilder(
                 valueListenable: dropValue,
                 builder: (BuildContext context, String value, _) {
@@ -147,10 +148,10 @@ class _MoedaDetalhesPageState extends State<MoedaDetalhesPage> {
                     width: 280,
                     child: DropdownButtonFormField<String>(
                       isExpanded: true,
-                      icon: Icon(Icons.drive_eta),
+                      icon: const Icon(Icons.drive_eta),
                       hint: const Text('Escolha a marca'),
                       decoration: InputDecoration(
-                        label: Text("Marca"),
+                        label: const Text("Marca"),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6)),
                       ),
