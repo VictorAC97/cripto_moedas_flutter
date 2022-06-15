@@ -140,33 +140,6 @@ class _MoedaDetalhesPageState extends State<MoedaDetalhesPage> {
                 onPressed: comprar,
               ),
             ),
-            const Padding(padding: EdgeInsets.all(16)),
-            ValueListenableBuilder(
-                valueListenable: dropValue,
-                builder: (BuildContext context, String value, _) {
-                  return SizedBox(
-                    width: 280,
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      icon: const Icon(Icons.drive_eta),
-                      hint: const Text('Escolha a marca'),
-                      decoration: InputDecoration(
-                        label: const Text("Marca"),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                      ),
-                      value: (value.isEmpty) ? null : value,
-                      onChanged: (escolha) =>
-                          dropValue.value = escolha.toString(),
-                      items: dropOptions
-                          .map((op) => DropdownMenuItem(
-                                child: Text(op),
-                                value: op,
-                              ))
-                          .toList(),
-                    ),
-                  );
-                })
           ],
         ),
       ),

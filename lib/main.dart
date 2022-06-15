@@ -1,12 +1,20 @@
+import 'package:cripto_moedas_flutter/config/app_settings.dart';
+import 'package:cripto_moedas_flutter/config/hive_config.dart';
 import 'package:cripto_moedas_flutter/pages/home/home_page.dart';
 import 'package:cripto_moedas_flutter/repositories/favoritas_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); //garante a inicializacao das widgets antes do runApp p n dar erro
+  await HiveConfig.start();
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => FavoritasRepository(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppSettings()),
+        ChangeNotifierProvider(create: (context) => FavoritasRepository()),
+      ],
       child: const MeuAplicativo(),
     ),
 

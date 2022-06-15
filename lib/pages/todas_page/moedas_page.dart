@@ -1,3 +1,4 @@
+import 'package:cripto_moedas_flutter/config/app_settings.dart';
 import 'package:cripto_moedas_flutter/model/Moeda.dart';
 import 'package:cripto_moedas_flutter/pages/detalhes_page/moeda_detalhes_page.dart';
 import 'package:cripto_moedas_flutter/repositories/favoritas_repository.dart';
@@ -15,15 +16,72 @@ class MoedasPage extends StatefulWidget {
 
 List<Moeda> selecionadas = [];
 final tabela = MoedaRepository.listaMoedas;
-NumberFormat real = NumberFormat.currency(locale: 'pt-BR', name: 'R\$');
+late NumberFormat real;
+late Map<String, String> loc;
 late FavoritasRepository favoritas;
 
 class _MoedasPageState extends State<MoedasPage> {
+  readNumberFormat() {
+    loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+  }
+
+  changeLanguageButton() {
+    final locale = loc['locale'] == 'pt_BR' ? 'en_US' : 'pt_BR';
+    final name = loc['locale'] == 'pt_BR' ? '\$' : 'R\$';
+
+    return PopupMenuButton(
+        icon: const Icon(Icons.language),
+        itemBuilder: (context) => [
+              PopupMenuItem(
+                child: ListTile(
+                  leading: const Icon(Icons.swap_vert),
+                  title: Text('Usar $locale'),
+                  onTap: () {
+                    context.read<AppSettings>().setLocale(locale, name);
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ]);
+  }
+
+  appBarDinamica() {
+    return selecionadas.isEmpty
+        ? AppBar(
+            title: const Text("Cripto Moedas"),
+            centerTitle: true,
+            actions: [
+              changeLanguageButton(),
+            ],
+          )
+        : AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                setState(() {
+                  selecionadas = [];
+                });
+              },
+            ),
+            backgroundColor: Colors.blueGrey[50],
+            elevation: 1,
+            title: Text("${selecionadas.length.toString()} selecionadas"),
+            centerTitle: true,
+            iconTheme: const IconThemeData(color: Colors.black87),
+            titleTextStyle: const TextStyle(
+                color: Colors.black87,
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     //instanciando a lista de favoritas com o provider
     //favoritas = Provider.of<FavoritasRepository>(context);  //forma 1
     favoritas = context.watch<FavoritasRepository>(); //forma 2
+    readNumberFormat();
 
     return Scaffold(
       appBar: appBarDinamica(),
@@ -99,32 +157,5 @@ class _MoedasPageState extends State<MoedasPage> {
         builder: (context) => MoedaDetalhesPage(moeda: moeda),
       ),
     );
-  }
-
-  appBarDinamica() {
-    return selecionadas.isEmpty
-        ? AppBar(
-            title: const Text("Cripto Moedas"),
-            centerTitle: true,
-          )
-        : AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                setState(() {
-                  selecionadas = [];
-                });
-              },
-            ),
-            backgroundColor: Colors.blueGrey[50],
-            elevation: 1,
-            title: Text("${selecionadas.length.toString()} selecionadas"),
-            centerTitle: true,
-            iconTheme: const IconThemeData(color: Colors.black87),
-            titleTextStyle: const TextStyle(
-                color: Colors.black87,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          );
   }
 }
