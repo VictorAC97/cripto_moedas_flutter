@@ -17,10 +17,10 @@ class ContaRepository extends ChangeNotifier {
   }
 
   _initRepository() async {
-    await _getSaldo();
+    await getSaldo();
   }
 
-  _getSaldo() async {
+  getSaldo() async {
     db = await DB.instance.database;
     List conta = await db.query('conta', limit: 1);
     _saldo = conta.first['saldo'];
